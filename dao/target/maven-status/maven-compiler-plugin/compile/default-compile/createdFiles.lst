@@ -1,0 +1,4 @@
+org\solent\com504\oodd\cart\dao\impl\InvoiceRepository.class
+org\solent\com504\oodd\cart\dao\impl\UserRepository.class
+org\solent\com504\oodd\cart\dao\impl\ShoppingItemCatalogRepository.class
+org\solent\com504\oodd\cart\dao\impl\PersistenceJPAConfig.class

@@ -1,0 +1,8 @@
+org\solent\com504\oodd\cart\model\dto\Invoice.class
+org\solent\com504\oodd\cart\model\dto\UserRole.class
+org\solent\com504\oodd\cart\model\dto\Address.class
+org\solent\com504\oodd\cart\model\dto\User.class
+org\solent\com504\oodd\cart\model\service\ShoppingCart.class
+org\solent\com504\oodd\cart\model\dto\ShoppingItem.class
+org\solent\com504\oodd\cart\model\service\ShoppingService.class
+org\solent\com504\oodd\password\PasswordUtils.class

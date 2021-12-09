@@ -1,0 +1,4 @@
+org\solent\com504\oodd\cart\dao\test\DAOTestConfiguration.class
+org\solent\com504\oodd\cart\dao\test\ShoppingItemCatalogRepositoryTest.class
+org\solent\com504\oodd\cart\dao\test\UserRepositoryTest.class
+org\solent\com504\oodd\cart\dao\test\InvoiceRepositoryTest.class
