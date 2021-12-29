@@ -13,7 +13,7 @@
 <jsp:include page="header.jsp" />
 <!-- Begin page content -->
 <main role="main" class="container">
-    <H1>Catalog</H1>
+    <H1>Manage Catalog</H1>
     
      <H1>Available Items</H1>
     <table class="table">
@@ -39,8 +39,13 @@
                     </form> 
                 </td>
             </tr>
-
         </c:forEach>
+    </table>
+
+    
+
+
+ 
 </main>
 
 

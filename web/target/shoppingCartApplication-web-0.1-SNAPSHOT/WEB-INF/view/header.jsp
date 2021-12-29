@@ -43,6 +43,8 @@
                         </button>
                         <a class="navbar-brand" href="#">Shopping Application</a>
                     </div>
+                    
+                    
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li <% if ("home".equals(request.getAttribute("selectedPage"))) {%> class="active"  <% } %> ><a href="./home">Home</a></li> 
@@ -54,6 +56,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="./users">Manage Users</a></li>
                                         <li><a href="./catalog">Manage Catalogue</a></li>
+                                        <li><a href="./properties">Manage Properties</a></li>
+                                        <li><a href="./orders">Manage Orders</a></li>
                                     </ul>
                                 </li>
                             </c:if>
