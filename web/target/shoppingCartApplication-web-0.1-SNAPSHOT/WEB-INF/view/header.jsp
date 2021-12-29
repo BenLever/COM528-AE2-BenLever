@@ -55,7 +55,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Admin <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="./users">Manage Users</a></li>
-                                        <li><a href="./catalog">Manage Catalogue</a></li>
+                                        <li><a href="./catalog">Manage Catalog</a></li>
                                         <li><a href="./properties">Manage Properties</a></li>
                                         <li><a href="./orders">Manage Orders</a></li>
                                     </ul>
