@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.UUID;
 
 /**
  *
@@ -22,14 +23,25 @@ public class ShoppingItem {
     private String name=null;
     private Integer quantity=0;
     private Double price=0.0;
+    private Integer stock=0;
+    private Boolean active=true;
+    
+    public Boolean getActive() {
+        return active;
+    }
+    
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
     
     public ShoppingItem(){
         
     }
 
-    public ShoppingItem(String name, Double price) {
+    public ShoppingItem(String name, Double price, Integer stock) {
         this.name = name;
         this.price = price;
+        this.stock = stock;
     }
 
     @Id
@@ -73,10 +85,18 @@ public class ShoppingItem {
     public void setPrice(Double price) {
         this.price = price;
     }
+    
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
     @Override
     public String toString() {
-        return "ShoppingItem{" + "uuuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
+        return "ShoppingItem{" + "uuuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", stock=" + stock + '}';
     }
     
             

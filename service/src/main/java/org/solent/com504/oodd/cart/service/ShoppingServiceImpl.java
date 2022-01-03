@@ -10,37 +10,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
+import org.solent.com504.oodd.cart.model.service.BankingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.solent.com504.oodd.bank.CreditCard;
+import org.solent.com504.oodd.bank.BankTransaction;
+import org.solent.com504.oodd.cart.model.dto.User;
+import javax.transaction.Transactional;
 
 /**
  *
  * @author cgallen
  */
-
+@Component
 public class ShoppingServiceImpl implements ShoppingService {
-
-    // note ConcurrentHashMap instead of HashMap if map can be altered while being read
-    private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
-
-    private List<ShoppingItem> itemlist = Arrays.asList(new ShoppingItem("house", 20000.00),
-            new ShoppingItem("hen", 5.00),
-            new ShoppingItem("car", 5000.00),
-            new ShoppingItem("pet alligator", 65.00)
-    );
-
+    
+    @Autowired
+    private ShoppingItemCatalogRepository shoppingItemRepo;
+    
+    @Autowired
+    BankingService BankingService;
+    
     public ShoppingServiceImpl() {
 
         // initialised the hashmap
-        for (ShoppingItem item : itemlist) {
-            itemMap.put(item.getName(), item);
-        }
+//        for (ShoppingItem item : itemlist) {
+//            itemMap.put(item.getName(), item);
+//        }
     }
 
     @Override
     public List<ShoppingItem> getAvailableItems() {
-        return itemlist;
+        
+        List<ShoppingItem> itemList = shoppingItemRepo.findAll();
+        return itemList;
     }
 
     @Override
@@ -55,16 +62,61 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public ShoppingItem getNewItemByName(String name) {
-        ShoppingItem templateItem = itemMap.get(name);
-        
-        if(templateItem==null) return null;
-        
+//        ShoppingItem templateItem = itemMap.get(name);
+//        
+//        if(templateItem==null) return null;
+//        
+//        ShoppingItem item = new ShoppingItem();
+//        item.setName(name);
+//        item.setPrice(templateItem.getPrice());
+//        item.setQuantity(0);
+//        item.setUuid(UUID.randomUUID().toString());
+        return null;
+    }
+    
+    @Transactional
+    public ShoppingItem addNewItemByNamePrice(String name, Double price) {
         ShoppingItem item = new ShoppingItem();
         item.setName(name);
-        item.setPrice(templateItem.getPrice());
-        item.setQuantity(0);
-        item.setUuid(UUID.randomUUID().toString());
+        item.setPrice(price);
+        shoppingItemRepo.save(item);
+
         return item;
     }
+
+    @Override
+    public ShoppingItem addNewItem(ShoppingItem shoppingItem) {
+
+        ShoppingItem item = null;
+        List<ShoppingItem> items = shoppingItemRepo.getItemByName(shoppingItem.getName());
+
+        if (!items.isEmpty()) {
+            throw new IllegalArgumentException("That item is already present in database" + shoppingItem);
+        }
+        item = shoppingItemRepo.save(shoppingItem);
+        return item;
+    }
+
+    @Override
+    public List<ShoppingItem> getActivatedItems() {
+
+        List<ShoppingItem> items = shoppingItemRepo.getActivatedItems();
+
+        return items;
+    }
+
+    @Override
+    public void deactivateItems(String uuid) {
+        
+        shoppingItemRepo.deactivateItems(uuid);
+        
+        
+    }
+    @Override
+    public void removeStock(){
+        
+        shoppingItemRepo.removeStock("name");
+    }
+
 
 }

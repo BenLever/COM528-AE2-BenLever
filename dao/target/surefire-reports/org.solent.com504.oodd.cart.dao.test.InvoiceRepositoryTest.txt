@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.solent.com504.oodd.cart.dao.test.InvoiceRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.738 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.146 sec

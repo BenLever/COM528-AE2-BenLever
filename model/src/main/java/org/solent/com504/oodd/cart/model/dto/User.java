@@ -28,6 +28,12 @@ public class User {
     private UserRole userRole;
 
     private Boolean enabled = true;
+    
+    private String endDate = "";
+    
+    private String cardNumber = "";
+    
+    private String issueNumber = "";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,6 +85,32 @@ public class User {
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
+    
+    public String getIssueNumber() {
+        return issueNumber;
+    }
+
+    public void setIssueNumber(String issueNumber) {
+        this.issueNumber = issueNumber;
+    }
+    
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+
 
     public Boolean getEnabled() {
         return enabled;

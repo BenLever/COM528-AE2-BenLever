@@ -29,25 +29,35 @@ public class ShoppingCartImpl implements ShoppingCart {
         return itemlist;
     }
 
+    /**
+     *
+     * @param shoppingItem
+     * @return
+     */
     @Override
-    public void addItemToCart(ShoppingItem shoppingItem) {
+    public boolean addItemToCart(ShoppingItem shoppingItem) {
         // itemMap.put(shoppingItem.getUuid(), shoppingItem);
-        
+
         // ANSWER
         boolean itemExists = false;
         for (String itemUUID : itemMap.keySet()) {
             ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
-            if (shoppingCartItem.getName().equals(shoppingItem.getName())){
+            if (shoppingCartItem.getName().equals(shoppingItem.getName())) {
                 Integer q = shoppingCartItem.getQuantity();
-                shoppingCartItem.setQuantity(q+1);
+                Integer s = shoppingCartItem.getStock();
+                if (q + 1 > s) {
+                    return false;
+                }
+                shoppingCartItem.setQuantity(q + 1);
                 itemExists = true;
                 break;
             }
         }
-        if (!itemExists){
+        if (!itemExists) {
             shoppingItem.setQuantity(1);
             itemMap.put(shoppingItem.getUuid(), shoppingItem);
         }
+        return true;
     }
 
     @Override
@@ -72,9 +82,12 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     }
 
-    @Override
-    public void clearCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeStock(String itemUuid) {
+        for (String itemUUID : itemMap.keySet()) {
+            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
+
+            shoppingCartItem.setStock(-shoppingCartItem.getQuantity());
+        }
     }
 
 }

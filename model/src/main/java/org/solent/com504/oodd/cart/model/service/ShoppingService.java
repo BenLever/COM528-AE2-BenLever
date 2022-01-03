@@ -20,6 +20,12 @@ public interface ShoppingService {
         
         public ShoppingItem getNewItemByName(String uuid);
         
-        public String checkStock(ShoppingCart cart);
+        public ShoppingItem addNewItem(ShoppingItem shoppingItem);
+        
+        public List<ShoppingItem> getActivatedItems();
+        
+        public void deactivateItems(String uuid);
+        
+        public void removeStock();
 
 }
