@@ -20,6 +20,8 @@ public interface ShoppingCart {
     
     public void removeItemFromCart(String itemUuid);
     
+    public void clearCart();
+    
     public double getTotal();
     
 }

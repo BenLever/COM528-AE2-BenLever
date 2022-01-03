@@ -3,6 +3,7 @@ package org.solent.com504.oodd.cart.spring.web;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.solent.com504.oodd.bank.CreditCard;
+import org.solent.com504.oodd.cardchecker.CardValidationResult;
+import org.solent.com504.oodd.cardchecker.RegexCardValidator;
+import org.solent.com504.oodd.cart.dao.impl.UserRepository;
 
 @Controller
 @RequestMapping("/")
@@ -31,6 +36,9 @@ public class MVCController {
     //private ShoppingService shoppingService = WebObjectFactory.getShoppingService();
     @Autowired
     ShoppingService shoppingService = null;
+    
+    @Autowired
+    UserRepository userRepo;
 
     // note that scope is session in configuration
     // so the shopping cart is unique for each web session
@@ -55,7 +63,7 @@ public class MVCController {
     }
 
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
-    public String viewCart(@RequestParam(name = "action", required = false) String action,
+    public String viewHome(@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
             @RequestParam(name = "itemUUID", required = false) String itemUuid,
             Model model,
@@ -113,29 +121,6 @@ public class MVCController {
         return "home";
     }
 
-    @RequestMapping(value = "/about", method = {RequestMethod.GET, RequestMethod.POST})
-    public String aboutCart(Model model, HttpSession session) {
-
-        // get sessionUser from session
-        User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
-        
-        // used to set tab selected
-        model.addAttribute("selectedPage", "about");
-        return "about";
-    }
-
-    @RequestMapping(value = "/contact", method = {RequestMethod.GET, RequestMethod.POST})
-    public String contactCart(Model model, HttpSession session) {
-
-        // get sessionUser from session
-        User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
-        
-        // used to set tab selected
-        model.addAttribute("selectedPage", "contact");
-        return "contact";
-    }
     
     @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
     public String catalogList(Model model, HttpSession session) {
@@ -166,12 +151,145 @@ public class MVCController {
         return "properties";
     }
     
+    @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
+    public String viewCart(
+            @RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "itemName", required = false) String itemName,
+            @RequestParam(name = "itemUuid", required = false) String itemUuid,
+            Model model,
+            HttpSession session) {
+
+        User sessionUser = getSessionUser(session);
+        
+        model.addAttribute("sessionUser", sessionUser);
+
+        model.addAttribute("selectedPage", "cart");
+
+        String message = "";
+        String errorMessage = "";
+        
+        if ("removeItemFromCart".equals(action)) {
+            message = "removed " + itemName + " from cart";
+            shoppingCart.removeItemFromCart(itemUuid);
+        } 
 
 
-    /*
-     * Default exception handler, catches all exceptions, redirects to friendly
-     * error page. Does not catch request mapping errors
-     */
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+
+        Double shoppingcartTotal = shoppingCart.getTotal();
+
+        // populate model with values
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
+        return "cart";
+    }
+    
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+        public String CheckoutView(
+            Model model,
+            HttpSession session) {
+
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        
+        List<User> purchaser = userRepo.findByUsername(sessionUser.getUsername());
+        if(purchaser.size() > 0){
+            User purchaseUser = purchaser.get(0);
+            model.addAttribute("user", purchaseUser);    
+        }
+        
+        // used to set tab selected
+        model.addAttribute("selectedPage", "checkout");
+
+        String message = "";
+        String errorMessage = "";
+
+
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+
+        Double shoppingcartTotal = shoppingCart.getTotal();
+        
+        // populate model with values
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+        return "checkout";
+    }
+    
+
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    public String CheckoutCart(
+            @RequestParam(name = "cardnumber", required = false) String cardnumber,            
+            @RequestParam(name = "cardname", required = false) String cardname,
+            @RequestParam(name = "expirydate", required = false) String expirydate,
+            @RequestParam(name = "issuenumber", required = false) String issuenumber,
+            @RequestParam(name = "cvv", required = false) String cvv,
+            Model model,
+            HttpSession session) {
+
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+        
+        model.addAttribute("selectedPage", "checkout");
+
+        String message = "";
+        String errorMessage = "";
+        
+        //Validate
+        CardValidationResult result = RegexCardValidator.isValid(cardnumber);
+        LOG.info("Validating: " + cardnumber + " is valid: " + result.isValid() + " message: " + result.getMessage());
+
+        
+        
+        if(!result.isValid()){
+            CreditCard card = new CreditCard();
+            card.setCvv(cvv);
+            card.setCardnumber(cardnumber);
+            card.setEndDate(expirydate);
+            card.setIssueNumber(issuenumber);
+            card.setName(name);
+            }
+            if(errorMessage.equals("")){
+                
+                //Check stock
+                String stockMessage = shoppingService.checkStock(shoppingCart);
+                if(stockMessage.equals("")){
+                    try{
+                        boolean purchased = shoppingService.purchaseItems(shoppingCart, sessionUser, card);
+                        if(!purchased){
+                            errorMessage = "Unable to purchase items. Please make sure you have entered your details correctly and that you have enough money in your account";
+                            LOG.error("Checkout Failed: " + errorMessage);
+                        }
+                        else{
+                            message = "Successfully purchased items";
+                        }
+        }
+        else{
+            errorMessage = result.getError();
+            LOG.error("Checkout Failed: " + errorMessage);  
+            
+        }
+        
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+        Double shoppingcartTotal = shoppingCart.getTotal();
+        
+
+        // populate model with values
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+        LOG.warn(errorMessage);
+        return "checkout";
+    }
+
+
+
     @ExceptionHandler(Exception.class)
     public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
         final StringWriter sw = new StringWriter();

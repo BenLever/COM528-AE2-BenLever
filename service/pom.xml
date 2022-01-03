@@ -150,6 +150,12 @@
             <artifactId>hamcrest-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>solent.ac.uk.ood.examples</groupId>
+            <artifactId>shoppingCartApplication-bank-client</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
       
 </project>

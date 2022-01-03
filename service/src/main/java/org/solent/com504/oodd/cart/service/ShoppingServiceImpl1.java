@@ -25,17 +25,8 @@ import org.springframework.stereotype.Component;
 public class ShoppingServiceImpl1 implements ShoppingService {
     
     @Autowired
-    private ShoppingItemCatalogRepository shoppingItemCatalogRepository;
-
-    // note ConcurrentHashMap instead of HashMap if map can be altered while being read
-//    private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
-//
-//    private List<ShoppingItem> itemlist = Arrays.asList(new ShoppingItem("house", 20000.00),
-//            new ShoppingItem("hen", 5.00),
-//            new ShoppingItem("car", 5000.00),
-//            new ShoppingItem("pet alligator", 65.00)
-//    );
-
+    ShoppingItemCatalogRepository shoppingItemRepo;
+    
     public ShoppingServiceImpl1() {
 
         // initialised the hashmap
@@ -47,7 +38,7 @@ public class ShoppingServiceImpl1 implements ShoppingService {
     @Override
     public List<ShoppingItem> getAvailableItems() {
         
-        List<ShoppingItem> itemList = shoppingItemCatalogRepository.findAll();
+        List<ShoppingItem> itemList = shoppingItemRepo.findAll();
         return itemList;
     }
 
@@ -73,6 +64,21 @@ public class ShoppingServiceImpl1 implements ShoppingService {
 //        item.setQuantity(0);
 //        item.setUuid(UUID.randomUUID().toString());
         return null;
+    }
+    
+    @Override 
+    public String checkStock(ShoppingCart cart){
+        for (ShoppingItem shoppingItem : cart.getShoppingCartItems()) {
+                
+                ShoppingItem ShoppingItem = shoppingItemRepo.findByName(ShoppingItem.getItem().getName()).get(0);
+                if(shoppingItem != null){
+                    
+                    if((shoppingItem.getQuantity() - shoppingItem.getQuantity()) < 0){
+                        return "Error for Item: " + shoppingItem.getName() + "   -  We only have " + shoppingItem.getQuantity() + " in stock and you're trying to order " + orderItem.getQuantity();
+                    }
+                }
+        }
+        return "";
     }
 
 }

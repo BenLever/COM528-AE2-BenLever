@@ -11,9 +11,9 @@ public class CreditCard {
 
     private String cardnumber="";
 
-    private String cvv="111";
+    private String cvv="";
 
-    private String issueNumber="01";
+    private String issueNumber="";
 
     public String getName() {
         return name;

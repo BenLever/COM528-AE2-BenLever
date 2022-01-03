@@ -77,6 +77,7 @@ public class PopulateDatabaseOnStart {
         new ShoppingItem("hen", 5.00),
         new ShoppingItem("car", 5000.00),
         new ShoppingItem("penguin", 15000.00),
+        new ShoppingItem("Boat", 10.00),
         new ShoppingItem("pet alligator", 65.00));
 
         for(ShoppingItem item:itemlist){

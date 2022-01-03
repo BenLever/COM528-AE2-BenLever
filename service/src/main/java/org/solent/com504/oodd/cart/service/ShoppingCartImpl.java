@@ -72,4 +72,9 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     }
 
+    @Override
+    public void clearCart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
