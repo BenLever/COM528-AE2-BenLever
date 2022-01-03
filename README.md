@@ -1,45 +1,17 @@
-# Ehopping Application program template
+# COM528 AE2
 
-This is based upon the Shopping Cart Using Spring with Bootstrap in session 6
+This e-commerce web application was built with Java using Spring MVC and Spring Boot. To handle the data used in the app, I am using Hibernate.
 
 
 
-### To run using stand alone spring boot maven plugin
+### To Use The App
 
-at base of project do a build
+At the base of the project run the following command
 ```
 mvn clean install
 ```
-move to web module and run project
-```
-cd web
-mvn spring-boot:run
-```
+Then move to the web project within Netbeans and right click the web project and click "Build With Dependencies"
+After doing so, right click again on the web project and click "Run"
+
 the project will be served at http://localhost:8080/index.html
 
-### To run using stand alone cargo maven plugin
-
-Alternatively you can use the cargo plugin
-```
-mvn cargo:run
-```
-then navigate to http://localhost:8080/shoppingCartApplication/
-
-
-### To run the project using  in Netbeans embedded Tomcat server
-
-If you right click on the webfacade-example1 project in netbeans and select 'run' netbeans will spin up a tomcat instance and launch your application.
-
-If you are asked for username and password just use the default admin admin.
- 
-(You must make sure you have stopped any maven started tomcat before you do this.)
-
-You will be able to see the application at http://localhost:8080/shoppingCartApplication/
-
-Note that sometimes the browser caches the old index.html so you may need to enter the correct url to access the app
-
-http://localhost:8080/shoppingCartApplication/home
-
-not
-
-http://localhost:8080/shoppingCartApplication/home.jsp
