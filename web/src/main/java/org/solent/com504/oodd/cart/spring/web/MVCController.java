@@ -50,8 +50,6 @@ public class MVCController {
     @Autowired
     ShoppingService shoppingService = null;
     
-    @Autowired
-    UserRepository userRepo;
 
     // note that scope is session in configuration
     // so the shopping cart is unique for each web session
@@ -76,7 +74,8 @@ public class MVCController {
     }
 
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
-    public String viewHome(@RequestParam(name = "action", required = false) String action,
+    public String viewHome
+            (@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
             @RequestParam(name = "itemUUID", required = false) String itemUuid,
             Model model,
@@ -105,6 +104,7 @@ public class MVCController {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
             ShoppingItem shoppingItem = shoppingService.getNewItemByName(itemName);
+            
             if (shoppingItem == null) {
                 message = "cannot add unknown " + itemName + " to cart";
             } else if (shoppingCart.addItemToCart(shoppingItem) == false) {
@@ -124,7 +124,7 @@ public class MVCController {
             message = "unknown action=" + action;
         }
 
-        List<ShoppingItem> availableItems = null;
+        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
 
         List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 

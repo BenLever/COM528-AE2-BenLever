@@ -14,7 +14,6 @@ import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
-import org.solent.com504.oodd.cart.model.service.BankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.solent.com504.oodd.bank.CreditCard;
@@ -32,8 +31,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     private ShoppingItemCatalogRepository shoppingItemRepo;
     
-    @Autowired
-    BankingService BankingService;
     
     public ShoppingServiceImpl() {
 
@@ -45,9 +42,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public List<ShoppingItem> getAvailableItems() {
-        
-        List<ShoppingItem> itemList = shoppingItemRepo.findAll();
-        return itemList;
+        return shoppingItemRepo.findAll();
     }
 
     @Override
@@ -62,16 +57,14 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public ShoppingItem getNewItemByName(String name) {
-//        ShoppingItem templateItem = itemMap.get(name);
-//        
-//        if(templateItem==null) return null;
-//        
-//        ShoppingItem item = new ShoppingItem();
-//        item.setName(name);
-//        item.setPrice(templateItem.getPrice());
-//        item.setQuantity(0);
-//        item.setUuid(UUID.randomUUID().toString());
-        return null;
+
+        ShoppingItem item = null;
+        List<ShoppingItem> items = shoppingItemRepo.getItemByName(name);
+
+        if (!items.isEmpty()) {
+            item = items.get(0);
+        }
+        return item;
     }
     
     @Transactional

@@ -12,7 +12,6 @@ org\solent\com504\oodd\bank\User.class
 org\solent\com504\oodd\cardchecker\RegexCardValidator.class
 org\solent\com504\oodd\cart\model\dto\UserRole.class
 org\solent\com504\oodd\cart\model\dto\Address.class
-org\solent\com504\oodd\cart\model\service\BankingService.class
 org\solent\com504\oodd\bank\BankTransactionStatus.class
 org\solent\com504\oodd\bank\TransactionReplyMessage.class
 org\solent\com504\oodd\bank\TransactionRequestMessage.class

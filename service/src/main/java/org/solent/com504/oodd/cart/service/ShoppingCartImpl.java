@@ -82,6 +82,7 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     }
 
+    @Override
     public void removeStock(String itemUuid) {
         for (String itemUUID : itemMap.keySet()) {
             ShoppingItem shoppingCartItem = itemMap.get(itemUUID);

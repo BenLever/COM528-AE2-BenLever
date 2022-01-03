@@ -1,4 +1,4 @@
-15:50:21.023 [main] [o.s.c.o.b.m.d.t.JsonDtoTests] DEBUG org.solent.com504.oodd.bank.model.dto.test.JsonDtoTests - Json transactionRequest output:
+18:37:04.124 [main] [o.s.c.o.b.m.d.t.JsonDtoTests] DEBUG org.solent.com504.oodd.bank.model.dto.test.JsonDtoTests - Json transactionRequest output:
 {
   "fromCard" : {
     "name" : "",
@@ -16,27 +16,6 @@
   },
   "amount" : 100.01
 }
-15:50:21.345 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password=1234567890 hashedpw=$2a$12$XYMLzazyFL8g5sQkZXR7aOnUWPtD5dcrYvHPFwERSUAaPoacNZ1De
-15:50:21.569 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 matches
-15:50:22.017 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 does not match
-15:50:55.405 [main] [o.s.c.o.b.m.d.t.JsonDtoTests] DEBUG org.solent.com504.oodd.bank.model.dto.test.JsonDtoTests - Json transactionRequest output:
-{
-  "fromCard" : {
-    "name" : "",
-    "endDate" : "",
-    "cardnumber" : "",
-    "cvv" : "111",
-    "issueNumber" : "01"
-  },
-  "toCard" : {
-    "name" : "",
-    "endDate" : "",
-    "cardnumber" : "",
-    "cvv" : "111",
-    "issueNumber" : "01"
-  },
-  "amount" : 100.01
-}
-15:50:55.725 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password=1234567890 hashedpw=$2a$12$ceJyhfkDKY4F1olDRnS5yOo2BdbbtCgQQYpqRVE4hNEESwY2.lc4K
-15:50:55.949 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 matches
-15:50:56.398 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 does not match
+18:37:04.438 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password=1234567890 hashedpw=$2a$12$yfSMkQqX2hUjBMA38IspD.JawveqWYm7AtgCw57Ugwg0KiQ6y9c0S
+18:37:04.665 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 matches
+18:37:05.110 [main] [o.s.c.o.p.t.PasswordUtilsTest] DEBUG org.solent.com504.oodd.password.test.PasswordUtilsTest - password 1234567890 does not match
