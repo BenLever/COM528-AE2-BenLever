@@ -23,7 +23,7 @@ public class ShoppingCartImpl implements ShoppingCart {
     public List<ShoppingItem> getShoppingCartItems() {
         List<ShoppingItem> itemlist = new ArrayList();
         for (String itemUUID : itemMap.keySet()) {
-            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
+            ShoppingItem shoppingCartItem = itemMap.get(itemUUID);        
             itemlist.add(shoppingCartItem);
         }
         return itemlist;
@@ -41,7 +41,9 @@ public class ShoppingCartImpl implements ShoppingCart {
         // ANSWER
         boolean itemExists = false;
         for (String itemUUID : itemMap.keySet()) {
+            
             ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
+            
             if (shoppingCartItem.getName().equals(shoppingItem.getName())) {
                 Integer q = shoppingCartItem.getQuantity();
                 Integer s = shoppingCartItem.getStock();

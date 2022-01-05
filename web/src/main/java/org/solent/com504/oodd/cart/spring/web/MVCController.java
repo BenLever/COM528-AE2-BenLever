@@ -77,13 +77,13 @@ public class MVCController {
     public String viewHome
             (@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            @RequestParam(name = "itemUuid", required = false) String itemUuid,
             Model model,
             HttpSession session) {
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
+        model.addAttribute("user", sessionUser);
 
         // used to set tab selected
         model.addAttribute("selectedPage", "home");
@@ -104,14 +104,12 @@ public class MVCController {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
             ShoppingItem shoppingItem = shoppingService.getNewItemByName(itemName);
-            
             if (shoppingItem == null) {
                 message = "cannot add unknown " + itemName + " to cart";
             } else if (shoppingCart.addItemToCart(shoppingItem) == false) {
                 message = "Not enough " + itemName + " to purchase";
             } else {
                 message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
-
             }
         } else if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName;
@@ -139,35 +137,24 @@ public class MVCController {
 
         return "home";
     }
-    
-    @RequestMapping(value = "/properties", method = {RequestMethod.GET, RequestMethod.POST})
-    public String propertiesCart(Model model, HttpSession session) {
-
-        // get sessionUser from session
-        User sessionUser = getSessionUser(session);
-        model.addAttribute("sessionUser", sessionUser);
-        
-        // used to set tab selected
-        model.addAttribute("selectedPage", "properties");
-        return "properties";
-    }
+   
     
     @RequestMapping(value = "/cart", method = {RequestMethod.GET, RequestMethod.POST})
     @SuppressWarnings("empty-statement")
     public String viewCart
             (@RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
-            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            @RequestParam(name = "itemUuid", required = false) String itemUuid,
             @RequestParam(name = "cust_cardnumber", required = false) String custcardnumber,
             @RequestParam(name = "cust_expirydate", required = false) String custexpirydate,
             @RequestParam(name = "cust_cvv", required = false) String custCVV,
-            @RequestParam(name = "cust_issueNumber", required = false) String custissuenumber,
+            @RequestParam(name = "cust_issuenumber", required = false) String custissuenumber,
             Model model,
             HttpSession session) {
 
         User sessionUser = getSessionUser(session);
         
-        model.addAttribute("sessionUser", sessionUser);
+        model.addAttribute("User", sessionUser);
 
         model.addAttribute("selectedPage", "cart");
 
@@ -209,7 +196,7 @@ public class MVCController {
             shoppingCart.removeItemFromCart(itemUuid);
             LOG.debug("Item Removed");
 
-        } else if ("payment".equals(action)) {
+        } else if ("purchase".equals(action)) {
             fromCard.setEndDate(custexpirydate);
             fromCard.setCardnumber(custcardnumber);
             fromCard.setCvv(custCVV);
@@ -246,6 +233,18 @@ public class MVCController {
         return "cart";
     }
 
+    @RequestMapping(value = "/properties", method = {RequestMethod.GET, RequestMethod.POST})
+    public String propertiesCart(Model model, HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+        
+        // used to set tab selected
+        model.addAttribute("selectedPage", "properties");
+        return "properties";
+    }
+    
     /*
      * Default exception handler, catches all exceptions, redirects to friendly
      * error page. Does not catch request mapping errors

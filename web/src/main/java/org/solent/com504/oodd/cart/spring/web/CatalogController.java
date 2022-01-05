@@ -91,7 +91,7 @@ public class CatalogController {
                     item.setStock(stock);
                     item = shoppingService.addNewItem(item);
                     LOG.debug("addStock created new item item=" + item);
-                    message = "addStock created new item item=" + item.getName();
+                    message = "Created new item item=" + item.getName();
                 } catch (Exception ex) {
                     errorMessage = "problem adding item." + ex.getMessage();
                 }

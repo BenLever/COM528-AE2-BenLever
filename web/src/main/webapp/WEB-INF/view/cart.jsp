@@ -22,17 +22,17 @@
 
         </tr>
 
-        <c:forEach var="orderItem" items="${shoppingCartItems}">
+        <c:forEach var="item" items="${shoppingCartItems}">
 
             <tr>
-                <td>${orderItem.item.name}</td>
-                <td>${orderItem.item.price}</td>
-                <td>${orderItem.quantity}</td>
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+                <td>${item.quantity}</td>
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./cart" method="post">
-                        <input type="hidden" name="itemId" value="${orderItem.item.id}">
-                        <input type="hidden" name="itemName" value="${orderItem.item.name}">
+                        <input type="hidden" name="itemId" value="${item.uuid}">
+                        <input type="hidden" name="itemName" value="${item.name}">
                         <input type="hidden" name="action" value="removeItemFromCart">
                         <button type="submit" >Remove Item</button>
                     </form> 
@@ -43,28 +43,25 @@
             <td>TOTAL</td>
             <td>${shoppingcartTotal}</td>
         </tr>
-    </table>
+        <td>
+                <H1>Enter Your Card Details</H1>
+                <form action="./cart" method="post">
+                    <input type="hidden" name="action" value="purchase">
+                    <p>Name: <input type="text" value="${user.firstName}" name="name" ></input></p>
+                    <p>Expriy Date: <input type="text" value="${user.custexpirydate}" name="cust_expirydate" ></input></p>
+                    <p>Card Number: <input type="text" value="${user.custcardnumber}" name="cust_cardnumber" ></input></p>
+                    <p>CVV: <input type="text" name="cust_cvv" ></input></p>
+                    <p>Issue Number: <input type="text" value="${user.custissuenumber}" name="cust_issuenumber" ></input></p>
+                    <p>Total £${shoppingcartTotal} </p>
+                    <p><button type="submit" >Purchase</button></p>
+                </form>
 
-    <c:if test="${sessionUser.userRole !='ANONYMOUS' && shoppingCartItems.size() > 0}">
-        <div class="row">
-            <form action="./checkout" method="GET"> 
-                <div class="col-xs-6 col-md-4">
-                    <button class="btn btn-primary" type="submit">
-                      Checkout
-                    </button>
-                </div>
-            </form>
-        </div>
-    </c:if>
-    <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
-        <div class="row">
-            <form action="./checkout" method="GET"> 
-                <div class="col-xs-6 col-md-4">
-                    <p style="color: red;"><strong>Sign in to proceed to checkout</strong></p>
-                </div>
-            </form>
-        </div>
-    </c:if>
+
+
+        </td>
+    </table>
+     
+
     
 
 

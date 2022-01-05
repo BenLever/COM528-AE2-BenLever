@@ -77,6 +77,16 @@
                 <td>${shoppingcartTotal}</td>
             </tr>
     </table>
+    
+    <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
+        <div class="row">
+            <form action="./cart" method="GET"> 
+                <div class="col-xs-6 col-md-4">
+                    <p style="color: red;"><strong>Sign in to proceed to checkout</strong></p>
+                </div>
+            </form>
+        </div>
+    </c:if>
 
 </main>
 <jsp:include page="footer.jsp" />
