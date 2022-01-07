@@ -33,7 +33,7 @@ Below are the use cases for the application from the point of view of 4 differen
 `Anonymous` - A user who has not logged in  
 `Customer` - A user who has logged in  
 `Deactivated` - A user whose account is closed  
-`Admin` - A user with elevated privileges
+`Admin` - A user with admin privledges
 
 | ID 	| Role  	 | Action | Outcome |
 | ----------- 	| ---------- | ----------- | ----------- |
