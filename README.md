@@ -16,3 +16,10 @@ After doing so, right click again on the web project and click "Run"
 
 the project will be served at `http://localhost:8080/shoppingCartApplication/home`
 
+## Defaults
+By default when the app runs it will create 2 accounts (username = password):
+ - `globaladmin`
+ - `user1234`
+
+## Setup
+Signing in as Admin allows you to change the properties of the application. To do so navigate to the admin section in the header and click "Manage Properties". From here you can configure all the properties for the application including bank url and shopkeeper details.
