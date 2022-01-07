@@ -115,7 +115,7 @@ You can see the requests to the page including GET requests and how these intera
 I have kept track of my app through the use of Github projects. In order to better help my development of the app
 
 # Overview
-This app was built with various Java technologies using [Maven] (https://maven.apache.org/) as its main project management. Maven allows the seemless entry of dependencies to the project just by reading the pom files. Another important feature of Maven is its multi-module projects this makes it so I can compile my web project to a WAR to be run by Tomcat all whilst my other projects are compiling to a JAR file.
+This app was built with various Java technologies using [Maven](https://maven.apache.org/) as its main project management. Maven allows the seemless entry of dependencies to the project just by reading the pom files. Another important feature of Maven is its multi-module projects this makes it so I can compile my web project to a WAR to be run by Tomcat all whilst my other projects are compiling to a JAR file.
 
 The whole app is built with the MVC structure - Model, View & Controller using [Spring MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html). This allows for cleaner code and adding more features easier.
 
