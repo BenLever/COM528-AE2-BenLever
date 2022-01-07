@@ -17,7 +17,7 @@ After doing so, right click again on the web project and click "Run"
 the project will be served at `http://localhost:8080/shoppingCartApplication/home`
 
 ## Requirements
-This application has been tested with the following. Other variations may work but have have not been tested and hence are not supported:
+This application has been tested with the following:
  - Java 11
  - Tomcat 8.5
  - Browser - Google Chrome
