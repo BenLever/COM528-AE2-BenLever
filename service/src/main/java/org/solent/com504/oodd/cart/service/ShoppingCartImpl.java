@@ -45,12 +45,12 @@ public class ShoppingCartImpl implements ShoppingCart {
             ShoppingItem shoppingCartItem = itemMap.get(itemUUID);
             
             if (shoppingCartItem.getName().equals(shoppingItem.getName())) {
-                Integer q = shoppingCartItem.getQuantity();
-                Integer s = shoppingCartItem.getStock();
-                if (q + 1 > s) {
+                Integer x = shoppingCartItem.getQuantity();
+                Integer y = shoppingCartItem.getStock();
+                if (x + 1 > y) {
                     return false;
                 }
-                shoppingCartItem.setQuantity(q + 1);
+                shoppingCartItem.setQuantity(x + 1);
                 itemExists = true;
                 break;
             }

@@ -48,7 +48,7 @@
                 <form action="./cart" method="post">
                     <input type="hidden" name="action" value="purchase">
                     <p>Name: <input type="text" value="${user.firstName}" name="name" ></input></p>
-                    <p>Expriy Date: <input type="text" value="${user.custexpirydate}" name="cust_expirydate" ></input></p>
+                    <p>Expiry Date: <input type="text" value="${user.custexpirydate}" name="cust_expirydate" ></input></p>
                     <p>Card Number: <input type="text" value="${user.custcardnumber}" name="cust_cardnumber" ></input></p>
                     <p>CVV: <input type="text" name="cust_cvv" ></input></p>
                     <p>Issue Number: <input type="text" value="${user.custissuenumber}" name="cust_issuenumber" ></input></p>

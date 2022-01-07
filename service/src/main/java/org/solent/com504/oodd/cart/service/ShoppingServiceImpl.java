@@ -91,21 +91,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public List<ShoppingItem> getActivatedItems() {
-
-        List<ShoppingItem> items = shoppingItemRepo.getActivatedItems();
-
-        return items;
-    }
-
-    @Override
-    public void deactivateItems(String uuid) {
-        
-        shoppingItemRepo.deactivateItems(uuid);
-        
-        
-    }
-    @Override
     public void removeStock(){
         
         shoppingItemRepo.removeStock("name");

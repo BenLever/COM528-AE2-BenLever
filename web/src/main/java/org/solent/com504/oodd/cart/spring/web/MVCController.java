@@ -42,7 +42,7 @@ public class MVCController {
     
     public static final PropertiesDao propertiesDao = WebObjectFactory.getPropertiesDao();
     public static CreditCard cardTo = null;
-    public static final String BANK_URL = propertiesDao.getProperty("rest_url");
+    public static final String BANK_URL = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.url");
     
 
     // this could be done with an autowired bean
@@ -114,10 +114,6 @@ public class MVCController {
         } else if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName;
             shoppingCart.removeItemFromCart(itemUuid);
-
-        } else if ("addItemsToBasket".equals(action)) {
-            message = "Added " + itemName + " to cart";
-            shoppingCart.removeItemFromCart(itemUuid);
         } else {
             message = "unknown action=" + action;
         }
@@ -149,6 +145,7 @@ public class MVCController {
             @RequestParam(name = "cust_expirydate", required = false) String custexpirydate,
             @RequestParam(name = "cust_cvv", required = false) String custCVV,
             @RequestParam(name = "cust_issuenumber", required = false) String custissuenumber,
+            @RequestParam(name = "name", required = false) String custname,
             Model model,
             HttpSession session) {
 
@@ -160,16 +157,17 @@ public class MVCController {
 
         String message = "";
         String errorMessage = "";
+        String cardcheckreply = "";
         
         List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
 
         Double shoppingcartTotal = shoppingCart.getTotal();
         
-        String name = propertiesDao.getProperty("name");
-        String cardnumber = propertiesDao.getProperty("cardnumber");
-        String issuenumber = propertiesDao.getProperty("issuenumber");
-        String expirydate = propertiesDao.getProperty("expirydate");
-        String cvv = propertiesDao.getProperty("cvv");
+        String name = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.name");
+        String cardnumber = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.cardnumber");
+        String issuenumber = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.issuenumber");
+        String expirydate = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.expirydate");
+        String cvv = propertiesDao.getProperty("org.solent.ood.simplepropertiesdaowebapp.cvv");
         
         //Card To
         CreditCard toCard = new CreditCard();
@@ -186,7 +184,9 @@ public class MVCController {
         fromCard.setCardnumber("");
         fromCard.setCvv("");
         fromCard.setIssueNumber("");
+        fromCard.setName("");
         
+       
         TransactionReplyMessage reply = null;
         
         if (action == null) {
@@ -197,32 +197,40 @@ public class MVCController {
             LOG.debug("Item Removed");
 
         } else if ("purchase".equals(action)) {
+            cardcheckreply = "";
+            CardValidationResult result = RegexCardValidator.isValid(custcardnumber);
+            
+            if (result.isValid()){
             fromCard.setEndDate(custexpirydate);
             fromCard.setCardnumber(custcardnumber);
             fromCard.setCvv(custCVV);
             fromCard.setIssueNumber(custissuenumber);
+            fromCard.setName(custname);
             LOG.debug("card number: " + fromCard.getCardnumber());
             
             //Starts Client
-            String bankurl;
-            bankurl = BANK_URL;
-            BankRestClient client = new BankRestClientImpl(bankurl);
+            BankRestClient client = new BankRestClientImpl(BANK_URL);
 
-            {
                 Double amount = shoppingCart.getTotal();
                 LOG.debug("amount: " + amount);
                 reply = client.transferMoney(toCard, fromCard, amount);
                 message = "Transaction" + reply;
+                
+                String errormessage = "";
+                errormessage = reply.getMessage();
+                if (errormessage == null && amount > 0) {
+                    String log = "Transaction was completed with card" + " " + custcardnumber + " " + "for the items" + " " + shoppingCartItems + "for the total amount of" + " " + amount + "." + "Full report: " + reply;
+                    message = "order has been placed successfully";
+                } else {
+                    String log = "Transaction was unsuccessful with card" + " " + custcardnumber + " " + "for the amount of" + " " + amount + "." + "Full report: " + reply;
+                    message = "order failed, please check your card details, shopping cart or contact admin";
+                }
+                }
+           }else {
+                cardcheckreply = custcardnumber + "&nbsp; is an invalid card number";
             }
-
-            if (message.contains("SUCCESS")) 
-            {shoppingCart.removeStock(itemName);
-            String reciept = shoppingCartItems.toString();
-            LOG.debug(reciept);
             
             
-            };
-        }
         // populate model with values
         model.addAttribute("shoppingCartItems", shoppingCartItems);
         model.addAttribute("shoppingcartTotal", shoppingcartTotal);
@@ -243,6 +251,33 @@ public class MVCController {
         // used to set tab selected
         model.addAttribute("selectedPage", "properties");
         return "properties";
+    }
+    
+    @RequestMapping(value = "/orders", method = {RequestMethod.GET, RequestMethod.POST})
+    public String userOrders(@RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "itemName", required = false) String itemName,
+            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            Model model,
+            HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        // used to set tab selected
+        model.addAttribute("selectedPage", "orders");
+        
+
+        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
+
+        List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+
+        Double shoppingcartTotal = shoppingCart.getTotal();
+
+        model.addAttribute("availableItems", availableItems);
+        model.addAttribute("shoppingCartItems", shoppingCartItems);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        return "orders";
     }
     
     /*

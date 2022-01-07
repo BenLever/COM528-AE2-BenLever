@@ -22,10 +22,6 @@ public interface ShoppingService {
         
         public ShoppingItem addNewItem(ShoppingItem shoppingItem);
         
-        public List<ShoppingItem> getActivatedItems();
-        
-        public void deactivateItems(String uuid);
-        
         public void removeStock();
 
 }

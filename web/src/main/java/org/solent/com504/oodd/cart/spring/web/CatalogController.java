@@ -98,33 +98,11 @@ public class CatalogController {
 
             }
         }
-        if ("activate".equals(action)) {
-            try {
-                
-                
-                LOG.debug("Item Activated: " + itemName);
-
-            } catch (Exception ex) {
-                errorMessage = "problem activating item." + ex.getMessage();
-            }
-        }
-
-        if ("deactivate".equals(action)) {
-            try {
-
-                shoppingService.deactivateItems(itemUuid);
-                LOG.debug("Item Deactivated: " + itemName);
-
-            } catch (Exception ex) {
-                errorMessage = "problem deactivating item." + ex.getMessage();
-            }
-        }
+        
         if (user.getUserRole() == UserRole.ADMINISTRATOR) {
             availableItems = shoppingService.getAvailableItems();
         }
-        if (user.getUserRole() != UserRole.ADMINISTRATOR) {
-            availableItems = shoppingService.getActivatedItems();
-        }
+
 
         int availableItemsSize = availableItems.size();
         // used to set tab selected
