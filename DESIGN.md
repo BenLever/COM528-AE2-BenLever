@@ -71,8 +71,8 @@ Below are the use cases for the application from the point of view of 4 differen
 ### Admin Tests
 | Test ID 	| Action  	 | Result | 
 | ----------- 	| ---------- | ---------- | 
-| TC7			|  Admin clicks add item on the manage catalog page  | Page loads for admin to enter details for a new product |
-| TC7.1  | The product is displayed on the home and catalog page |
+| TC7			|  Admin clicks on manage catalog page  | Page loads for admin to enter details for a new product |
+| TC7.1  | Admin clicks add item on the manage catalog page | The product is displayed on the home and catalog page |
 | TC8   	|  Admin opens the orders page | A page loads for orders  | 
 | TC9  	| Admin clicks on the users page | A page loads containing all the users in the system  | 
 | TC9.1  	|  Admin clicks modify user on the users page | A page loads containing all information about the user  | 
