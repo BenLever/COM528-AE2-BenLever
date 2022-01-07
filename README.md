@@ -16,6 +16,12 @@ After doing so, right click again on the web project and click "Run"
 
 the project will be served at `http://localhost:8080/shoppingCartApplication/home`
 
+## Requirements
+This application has been tested with the following. Other variations may work but have have not been tested and hence are not supported:
+ - Java 11
+ - Tomcat 8.5
+ - Browser - Google Chrome
+
 ## Defaults
 By default when the app runs it will create 2 accounts (username = password):
  - `globaladmin`
