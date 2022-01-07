@@ -53,7 +53,7 @@ Below are the use cases for the application from the point of view of 4 differen
 
 # Test Plan
 
-### Anonymous and customer Tests
+### Anonymous and Customer Tests
 | Test ID  | Action  	 | Result |
 | ----------- 	| ---------- | ---------- | 
 | TC1			    | New user loads site  | Every product available is displayed on the home page |
