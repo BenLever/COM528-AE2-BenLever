@@ -1,7 +1,7 @@
 # COM528 AE2
 [Design Doc](https://github.com/BenLever/COM528-AE2-BenLever/blob/main/DESIGN.md) - Holds all diagrams, use cases, test plans and features
 
-This e-commerce web application was built with Java using Spring MVC and Spring Boot. To handle the data used in the app, I am using Hibernate.
+This e-commerce web application was built with Java using [Spring MVC](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html) and [Spring Boot](https://spring.io/projects/spring-boot). To handle the data used in the app, I am using [Hibernate](https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa).
 
 
 
