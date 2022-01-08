@@ -1,5 +1,0 @@
-org\solent\com504\oodd\cart\service\ShoppingCartImpl.class
-org\solent\com504\oodd\cart\service\ShoppingServiceImpl.class
-org\solent\com504\oodd\cart\spring\service\PopulateDatabaseOnStart.class
-org\solent\com504\oodd\cart\spring\service\ServiceConfiguration.class
-org\solent\com504\oodd\cart\service\ServiceObjectFactory.class
