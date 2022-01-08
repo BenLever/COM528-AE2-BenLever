@@ -78,7 +78,6 @@ Below are the use cases for the application from the point of view of 4 differen
 | TC9.1  	|  Admin clicks modify user on the users page | A page loads containing all information about the user  | 
 | TC9.2  	|  Admin edits user's details | The details are changed on the user's my profile page  | 
 | TC9.3 	| Admin edits user's state to de-activated | The user is unable to log in to the system  | 
-| TC9.4   	| Admin edits user's state to de-activated | The user is unable to log in to the system  | 
 | TC10   	| Admin clicks on manage properties page| Page loads for admin to change properties
 | TC10.1 	| Admin enters properties information in to the system and clicks save | Properties information changes and is saved in file |
 
