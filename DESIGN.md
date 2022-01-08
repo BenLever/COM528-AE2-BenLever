@@ -123,7 +123,7 @@ The whole app is built with the MVC structure - Model, View & Controller using [
 I have utilised DTO (Data Transfer Objects) for the app's model layer, which in turn will be kept in a database using [Spring Data JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference). This way I can better spend my time on the project instead of manually writing query code for the database.
 
 ## Controller Layer
-Each page in our app will use a controller to pull data from the database and pass it to the view layer. The controller is the link between our model layer and the views. Using the MVC structure allows for much cleaner and simpler JSPs.
+Each page in the app will use a controller to pull data from the database and pass it to the view layer. The controller is the link between our model layer and the views. Using the MVC structure allows for much cleaner and simpler JSPs.
 
 ## View Layer
 For the view layer I will continue to use JSPs but also include [JSTL (JavaServer Pages Tag Library)](https://www.oracle.com/java/technologies/java-server-tag-library.html). This allows more complex functions to be used within the JSPs such as IF statements and FOR loops.
