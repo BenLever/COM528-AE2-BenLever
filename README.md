@@ -14,7 +14,7 @@ mvn clean install
 Then move to the web project within Netbeans and right click the web project and click "Build With Dependencies"
 After doing so, right click again on the web project and click "Run"
 
-the project will be served at `http://localhost:8080/shoppingCartApplication/home`
+the project will be served at `http://localhost:8080/shoppingCartApplication/index.html`
 
 ## Requirements
 This application has been tested with the following:
